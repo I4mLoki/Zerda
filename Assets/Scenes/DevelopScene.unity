@@ -638,12 +638,13 @@ GameObject:
   - component: {fileID: 1210196690}
   - component: {fileID: 1210196689}
   - component: {fileID: 1210196688}
-  - component: {fileID: 1210196687}
+  - component: {fileID: 1210196693}
   - component: {fileID: 1210196686}
   - component: {fileID: 1210196692}
   - component: {fileID: 1210196691}
-  - component: {fileID: 1210196693}
   - component: {fileID: 1210196694}
+  - component: {fileID: 1210196687}
+  - component: {fileID: 1210196695}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -667,19 +668,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!65 &1210196687
-BoxCollider:
+--- !u!114 &1210196687
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210196685}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b2a0034609972146abd30d629a380f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1210196686}
+  animator: {fileID: 1210196695}
+  _lookDir: 0
+  _newQuaternion: {x: 0, y: 0, z: 0, w: 0}
 --- !u!23 &1210196688
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -769,18 +773,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 898d150bb58e7e04c96d30ea11a3cc5b, type: 2}
---- !u!114 &1210196693
-MonoBehaviour:
+--- !u!65 &1210196693
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210196685}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb356c7d67ff8d4b837eb51178f003c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1210196694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,6 +801,26 @@ MonoBehaviour:
   weapons:
   - {fileID: 11400000, guid: 8f56a531c7fdb4949a2bb9fae8ef5d3c, type: 2}
   - {fileID: 11400000, guid: 06b2885bd1e47e341b8a44c7b563f364, type: 2}
+  - {fileID: 11400000, guid: 4f4ba9fa673d4c3499e0f9cb423bed88, type: 2}
+--- !u!95 &1210196695
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210196685}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1214398810
 GameObject:
   m_ObjectHideFlags: 0
