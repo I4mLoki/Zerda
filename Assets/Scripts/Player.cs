@@ -1,25 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using Model;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private Character character;
-    
+
+    private PlayerController _playerController;
     private Health _health;
-    private AttackArea _attackArea;
 
     private void Awake()
     {
+        _playerController = GetComponent<PlayerController>();
         _health = GetComponent<Health>();
-        _attackArea = GetComponentInChildren<AttackArea>();
-        
-        _health.Character = character;
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && _attackArea.enemyInArea)
-            _health.DealDamage(character.attack, _attackArea.enemies);
+        _playerController.Character = character;
+        _health.Character = character;
     }
 }

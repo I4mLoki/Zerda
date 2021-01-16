@@ -8,7 +8,7 @@ public class AttackArea : MonoBehaviour
     public List<GameObject> enemies;
     public Character character;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(character.target))
         {
@@ -19,7 +19,7 @@ public class AttackArea : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag(character.target))
         {
