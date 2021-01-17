@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Model
+namespace Data
 {
-    [CreateAssetMenu(fileName = "New Weapon", menuName = "Weapon")]
+    [CreateAssetMenu(fileName = "New Weapon", menuName = "Custom/Weapon")]
     public class Weapon
         : ScriptableObject
     {

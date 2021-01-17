@@ -1,4 +1,4 @@
-﻿using Model;
+﻿using Data;
 using UnityEngine;
 
 namespace Controllers
@@ -25,7 +25,7 @@ namespace Controllers
         {
             _inputHorizontalSpeed = Input.GetAxis("Horizontal") * _character.speed;
             _inputVerticalSpeed = Input.GetAxis("Vertical") * _character.speed;
-        
+
             _rigidbody.velocity = new Vector2(_inputHorizontalSpeed, _inputVerticalSpeed);
         }
     }

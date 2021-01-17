@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Model;
+using Data;
 using UnityEngine;
 
 public class AttackArea : MonoBehaviour

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   health: 5
-  attack: 1
+  stamina: 20
+  staminaRecoverySpeed: 2
   speed: 5
   target: Enemy

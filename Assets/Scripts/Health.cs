@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Model;
+using Data;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -38,7 +38,6 @@ public class Health : MonoBehaviour
 
         if (enemyTarget.TryGetComponent<Health>(out var health))
         {
-            Debug.Log($"{gameObject.name} has dealt {damage} damage to {enemyTarget.name}");
             health.TakeDamage(damage);
         }
     }
@@ -46,7 +45,6 @@ public class Health : MonoBehaviour
     private void TakeDamage(int damage)
     {
         _health -= damage;
-        Debug.Log($"{gameObject.name}'s current health is now {_health}");
     }
 
     private void ResetHealth()

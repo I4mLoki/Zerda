@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using Model;
+﻿using System;
+using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 namespace Controllers
@@ -12,11 +13,15 @@ namespace Controllers
         private Weapon _currentWeapon;
         private int _currentWeaponIndex;
         private AttackArea _attackArea;
+        private Stamina _stamina;
+        private Actions _actions;
 
         private void Awake()
         {
             _health = GetComponent<Health>();
             _attackArea = GetComponentInChildren<AttackArea>();
+            _stamina = GetComponent<Stamina>();
+            _actions = GetComponent<Actions>();
 
             Setup();
             ChangeWeapon();
@@ -24,8 +29,19 @@ namespace Controllers
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space) && _attackArea.enemyInArea)
-                _health.DealDamage(_currentWeapon.damage, _attackArea.enemies);
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (_attackArea.enemies.Count > 0)
+                    _health.DealDamage(_currentWeapon.damage, _attackArea.enemies);
+                
+                _stamina.UseStamina(_actions.AttackCost);
+            }
+
+            // if (Input.GetKey(KeyCode.Mouse1) && _attackArea.enemyInArea)
+            // {
+            //     // _health.DealDamage(_currentWeapon.damage, _attackArea.enemies);
+            //     _stamina.UseContinuousStamina(_actions.AttackCost);
+            // }
         }
 
         private void LateUpdate()
@@ -42,7 +58,7 @@ namespace Controllers
             _currentWeapon = weapons[index];
             _currentWeaponIndex = index;
         }
-    
+
         private void SelectNextWeapon()
         {
             _currentWeaponIndex++;

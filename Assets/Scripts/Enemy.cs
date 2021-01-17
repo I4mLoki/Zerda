@@ -1,4 +1,4 @@
-﻿using Model;
+﻿using Data;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
