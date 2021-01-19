@@ -5,16 +5,19 @@ namespace Controllers
 {
 	public class Controller : MonoBehaviour
 	{
+		public bool canRotate;
 		public Animator animator;
 		public Character Character
 		{
+			get => _character;
 			set => _character = value;
 		}
-		
+
 		Vector3 _movement;
 		Vector3 _pushDirection;
 		private Vector3 _impact;
 		private Rigidbody _rb;
+		
 		private Character _character;
 		private float PushPower = 2f;
 		private Quaternion _newQuaternion;
@@ -25,7 +28,8 @@ namespace Controllers
         }
 		private void Update()
 		{
-			Rotate();
+			if(canRotate)
+				Rotate(_movement);
 		}
 
 		private void FixedUpdate()
@@ -42,12 +46,12 @@ namespace Controllers
 			animator.SetFloat("Vertical", _movement.z);
 			animator.SetFloat("Speed", _movement.sqrMagnitude);
 		}
-	
-		private void Rotate()
-		{
-			var angle = Mathf.Atan2(_movement.x, _movement.z) * Mathf.Rad2Deg;
 
-			if (_movement != Vector3.zero)
+		public void Rotate(Vector3 _move)
+		{
+			var angle = Mathf.Atan2(_move.x, _move.z) * Mathf.Rad2Deg;
+
+			if (_move != Vector3.zero)
 			{
 				_newQuaternion = Quaternion.Euler(Vector3.up * (angle));
 			}

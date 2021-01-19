@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Model
 {
-    [CreateAssetMenu(fileName = "New Weapon", menuName = "Weapon")]
+    [CreateAssetMenu(fileName = "New Weapon", menuName = "Game/Weapon")]
     public class Weapon
         : ScriptableObject
     {

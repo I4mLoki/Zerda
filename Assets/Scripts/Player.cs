@@ -8,12 +8,12 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Character character;
 
-    private PlayerController _playerController;
+    private Controller _playerController;
     private Health _health;
-
+  
     private void Awake()
     {
-        _playerController = GetComponent<PlayerController>();
+        _playerController = GetComponent<Controller>();
         _health = GetComponent<Health>();
 
         _playerController.Character = character;
