@@ -6,6 +6,9 @@ namespace Controllers
     {
         private Stamina _stamina;
         private Actions _actions;
+        private bool _shielded;
+
+        public bool Shielded => _shielded;
 
         private void Awake()
         {
@@ -13,12 +16,15 @@ namespace Controllers
             _actions = GetComponent<Actions>();
         }
 
-        private void Update()
+        public void ShieldUp()
         {
-            if (Input.GetKey(KeyCode.Mouse1))
-            {
-                _stamina.UseContinuousStamina(_actions.ShieldCost);
-            }
+            _stamina.UseContinuousStamina(_actions.ShieldMaintenanceCost);
+            _shielded = true;
+        }
+        
+        public void ShieldDown()
+        {
+            _shielded = false;
         }
     }
 }

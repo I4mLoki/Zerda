@@ -8,31 +8,34 @@ public class Stamina : MonoBehaviour
     [SerializeField] private Slider slider;
 
     private Character _character;
-    private bool _usingStamina;
+    private bool _canUseStamina;
+    private float _stamina;
+    public bool CanUseStamina => _canUseStamina;
 
     public Character Character
     {
         set => _character = value;
     }
 
-    private float _stamina;
 
     private void Start()
     {
+        _canUseStamina = true;
         slider.maxValue = _character.stamina;
         ResetStamina();
     }
 
     private void Update()
     {
-        if (!_usingStamina)
-            RecoveryStamina();
+        RecoveryStamina();
     }
 
     public void UseStamina(float amount)
     {
         if (_stamina > 0)
             _stamina -= amount;
+        else
+            _canUseStamina = false;
 
         slider.value = _stamina;
     }
@@ -43,6 +46,8 @@ public class Stamina : MonoBehaviour
 
         if (_stamina > 0)
             _stamina -= speed;
+        else
+            _canUseStamina = false;
 
         slider.value = _stamina;
     }
@@ -57,6 +62,8 @@ public class Stamina : MonoBehaviour
             if (_stamina > _character.stamina)
                 _stamina = _character.stamina;
         }
+        else
+            _canUseStamina = true;
 
         slider.value = _stamina;
     }

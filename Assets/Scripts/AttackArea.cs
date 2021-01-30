@@ -6,11 +6,19 @@ public class AttackArea : MonoBehaviour
 {
     public bool enemyInArea;
     public List<GameObject> enemies;
-    public Character character;
+    private Character _character;
+
+    public Character Character
+    {
+        set => _character = value;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(character.target))
+        if (_character == null)
+            return;
+
+        if (other.CompareTag(_character.target))
         {
             var enemy = other.gameObject;
 
@@ -21,7 +29,10 @@ public class AttackArea : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(character.target))
+        if (_character == null)
+            return;
+        
+        if (other.CompareTag(_character.target))
         {
             var enemy = other.gameObject;
 

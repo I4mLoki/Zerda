@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System;
+using Data;
 using UnityEngine;
 
 namespace Controllers
@@ -10,6 +11,9 @@ namespace Controllers
         private Rigidbody _rigidbody;
 
         private Character _character;
+        private WeaponController _weaponController;
+        private ShieldController _shieldController;
+        private Stamina _stamina;
 
         public Character Character
         {
@@ -19,6 +23,9 @@ namespace Controllers
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _weaponController = GetComponent<WeaponController>();
+            _shieldController = GetComponent<ShieldController>();
+            _stamina = GetComponent<Stamina>();
         }
 
         private void Update()
@@ -27,6 +34,30 @@ namespace Controllers
             _inputVerticalSpeed = Input.GetAxis("Vertical") * _character.speed;
 
             _rigidbody.velocity = new Vector2(_inputHorizontalSpeed, _inputVerticalSpeed);
+
+            if (Input.GetKeyDown(KeyCode.Mouse0) && _stamina.CanUseStamina)
+            {
+                _weaponController.Attack(_shieldController.Shielded);
+                _shieldController.ShieldDown();
+            }
+
+            if (Input.GetKey(KeyCode.Mouse1) && _stamina.CanUseStamina)
+                _shieldController.ShieldUp();
+            else
+                _shieldController.ShieldDown();
+        }
+
+        private void LateUpdate()
+        {
+            ChangeWeapon();
+        }
+
+        private void ChangeWeapon()
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+                _weaponController.SelectNextWeapon();
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+                _weaponController.SelectPreviousWeapon();
         }
     }
 }

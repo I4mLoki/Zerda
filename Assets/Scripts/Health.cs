@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField]
+    private HeartManager heartManager;
+
     private Character _character;
 
     public Character Character
@@ -22,6 +25,9 @@ public class Health : MonoBehaviour
 
     public void DealDamage(int damage, List<GameObject> enemies)
     {
+        if (enemies.Count == 0)
+            return;
+
         var enemyTarget = enemies[0];
         var currentDistance = 0f;
 
@@ -44,11 +50,16 @@ public class Health : MonoBehaviour
 
     private void TakeDamage(int damage)
     {
-        _health -= damage;
+        // if (_health > 0)
+        // {
+            _health -= damage;
+            heartManager.TakeDamage(damage);
+        // }
     }
 
     private void ResetHealth()
     {
         _health = _character.health;
+        heartManager.SetHealth(_health);
     }
 }

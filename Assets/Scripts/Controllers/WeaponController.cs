@@ -7,7 +7,8 @@ namespace Controllers
 {
     public class WeaponController : MonoBehaviour
     {
-        [SerializeField] private List<Weapon> weapons;
+        [SerializeField]
+        private List<Weapon> weapons;
 
         private Health _health;
         private Weapon _currentWeapon;
@@ -27,29 +28,18 @@ namespace Controllers
             ChangeWeapon();
         }
 
-        private void Update()
+        public void Attack(bool enemyShielded)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                if (_attackArea.enemies.Count > 0)
-                    _health.DealDamage(_currentWeapon.damage, _attackArea.enemies);
-                
+            if (_currentWeapon == null)
+                return;
+            
+            if (_attackArea.enemies.Count > 0 && !enemyShielded)
+                _health.DealDamage(_currentWeapon.damage, _attackArea.enemies);
+            else if (enemyShielded)
+                _health.DealDamage(_currentWeapon.damage, _attackArea.enemies);
+
+            if (gameObject.CompareTag("Player"))
                 _stamina.UseStamina(_actions.AttackCost);
-            }
-
-            // if (Input.GetKey(KeyCode.Mouse1) && _attackArea.enemyInArea)
-            // {
-            //     // _health.DealDamage(_currentWeapon.damage, _attackArea.enemies);
-            //     _stamina.UseContinuousStamina(_actions.AttackCost);
-            // }
-        }
-
-        private void LateUpdate()
-        {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
-                SelectNextWeapon();
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
-                SelectPreviousWeapon();
         }
 
         private void Setup()
@@ -59,7 +49,7 @@ namespace Controllers
             _currentWeaponIndex = index;
         }
 
-        private void SelectNextWeapon()
+        public void SelectNextWeapon()
         {
             _currentWeaponIndex++;
 
@@ -70,7 +60,7 @@ namespace Controllers
             ChangeWeapon();
         }
 
-        private void SelectPreviousWeapon()
+        public void SelectPreviousWeapon()
         {
             _currentWeaponIndex--;
 
@@ -83,10 +73,15 @@ namespace Controllers
 
         private void ChangeWeapon()
         {
-            var attackCollider = _attackArea.GetComponent<BoxCollider>();
-            attackCollider.size = new Vector3(attackCollider.size.x, _currentWeapon.range);
-            attackCollider.center = new Vector3(attackCollider.center.x, _currentWeapon.Center);
-            Debug.Log($"New weapon selected is {_currentWeapon.name}");
+            if (_attackArea.TryGetComponent<BoxCollider>(out var attackCollider))
+            {
+                if (_currentWeapon == null)
+                    return;
+                
+                attackCollider.size = new Vector3(attackCollider.size.x, _currentWeapon.range);
+                attackCollider.center = new Vector3(attackCollider.center.x, _currentWeapon.Center);
+                // Debug.Log($"New weapon selected is {_currentWeapon.name}");
+            }
         }
     }
 }
